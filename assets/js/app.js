@@ -17,17 +17,17 @@
     $("resultsCount").textContent=`${results.length} product${results.length===1?"":"s"} found`;
     $("searchResults").innerHTML=results.length?results.map(productCard).join(""):empty("No matching products","Try another keyword or change the category filter.");
   }
-  function renderDashboard(){const history=Store.get("history");$("statSearches").textContent=history.length;$("statSaved").textContent=Store.get("saved").length;$("statSuppliers").textContent=SUPPLIERS.length;$("statCompare").textContent=Store.get("compare").length;
+  function renderDashboard(){const history=Store.get("history");
     $("dashboardRecent").innerHTML=history.length?history.slice().reverse().slice(0,4).map(h=>`<div class="recent-item"><span class="recent-icon"><i class="bi bi-search"></i></span><div><div class="recent-term">${esc(h.term)}</div><div class="recent-meta">${esc(h.date)}</div></div><button class="btn btn-sm btn-light" data-action="repeat" data-term="${esc(h.term)}">Search again</button></div>`).join(""):empty("No searches yet","Your recent searches will appear here.","clock-history");
-    $("dashboardProducts").innerHTML=PRODUCTS.slice(0,3).map(productCard).join("");
+    renderHistory();renderSaved();
   }
-  function showPage(page){document.querySelectorAll(".page-section").forEach(el=>el.classList.add("d-none"));$("page-"+page).classList.remove("d-none");document.querySelectorAll("#mainNav .nav-link").forEach(a=>a.classList.toggle("active",a.dataset.page===page));$("sidebar").classList.remove("open");
-    if(page==="dashboard")renderDashboard();if(page==="search")renderSearch();if(page==="compare")renderCompare();if(page==="saved")renderSaved();if(page==="suppliers")renderSuppliers();if(page==="history")renderHistory();
+  function showPage(page){const target=$("page-"+page);if(!target)return;document.querySelectorAll(".page-section").forEach(el=>el.classList.add("d-none"));target.classList.remove("d-none");document.querySelectorAll("#mainNav .nav-link").forEach(a=>{const active=a.dataset.page===page;a.classList.toggle("active",active);if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+    if(page==="dashboard"){renderDashboard();renderSearch(currentQuery);}if(page==="compare")renderCompare();if(page==="suppliers")renderSuppliers();
   }
-  function doSearch(q){const term=q.trim();if(!term){notify("Enter a product or keyword to search.");return;}const history=Store.get("history");history.push({term,date:new Date().toLocaleString()});Store.set("history",history.slice(-30));$("searchInput").value=term;showPage("search");renderSearch(term);renderDashboard();}
+  function doSearch(q){const term=q.trim();if(!term){notify("Enter a product or keyword to search.");return;}const history=Store.get("history");history.push({term,date:new Date().toLocaleString()});Store.set("history",history.slice(-30));$("dashboardSearchInput").value=term;currentQuery=term;showPage("dashboard");}
   function toggleSaved(id){let ids=Store.get("saved");if(ids.includes(id)){ids=ids.filter(x=>x!==id);notify("Product removed from saved list.");}else{ids.push(id);notify("Product saved.");}Store.set("saved",ids);refreshCurrent();}
   function toggleCompare(id){let ids=Store.get("compare");if(ids.includes(id)){ids=ids.filter(x=>x!==id);notify("Product removed from comparison.");}else if(ids.length>=4){notify("You can compare up to four products.");return;}else{ids.push(id);notify("Added to comparison.");}Store.set("compare",ids);$("compareCount").textContent=ids.length;refreshCurrent();}
-  function refreshCurrent(){const active=document.querySelector(".page-section:not(.d-none)")?.id.replace("page-","");if(active==="search")renderSearch();if(active==="dashboard")renderDashboard();if(active==="saved")renderSaved();if(active==="compare")renderCompare();$("compareCount").textContent=Store.get("compare").length;}
+  function refreshCurrent(){const active=document.querySelector(".page-section:not(.d-none)")?.id.replace("page-","");if(active==="dashboard"){renderDashboard();renderSearch(currentQuery);}if(active==="compare")renderCompare();$("compareCount").textContent=Store.get("compare").length;}
   function showDetails(id){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const s=supplierFor(p);$("productModalTitle").textContent=p.name;
     $("productModalBody").innerHTML=`<div class="d-flex justify-content-between flex-wrap gap-2 mb-3"><span class="badge bg-light text-dark">${esc(p.category)}</span><span class="badge-mock">DEMO RECORD · NOT LIVE VERIFIED</span></div><p class="text-muted">${esc(p.description)}</p><div class="detail-grid mb-4"><div class="detail-field"><small>Listed price</small><strong class="price">${money(p.price,p.currency)}</strong></div><div class="detail-field"><small>Supplier</small><strong>${esc(s.name)}</strong></div><div class="detail-field"><small>Supplier location</small><strong>${esc(s.location)}</strong></div><div class="detail-field"><small>Information retrieved</small><strong>${esc(p.retrievedAt)} (sample date)</strong></div></div><h6 class="fw-bold mb-2">Technical specifications</h6><ul class="spec-list mb-4">${Object.entries(p.specifications).map(([k,v])=>`<li><span>${esc(k)}</span><strong>${esc(v)}</strong></li>`).join("")}</ul><h6 class="fw-bold mb-2">Supplier information</h6><div class="detail-grid mb-3"><div class="detail-field"><small>Contact</small><strong>${esc(s.phone)}</strong></div><div class="detail-field"><small>Email</small><strong>${esc(s.email)}</strong></div></div><p class="small text-muted mb-3">Source listing: <a href="${esc(p.sourceUrl)}" target="_blank" rel="noopener">Visit sample source <i class="bi bi-box-arrow-up-right"></i></a></p><div class="d-flex gap-2"><button class="btn btn-primary" data-action="compare" data-id="${p.id}">Add to comparison</button><button class="btn btn-outline-secondary" data-action="save" data-id="${p.id}">Save product</button><a class="btn btn-outline-secondary" href="${esc(s.website)}" target="_blank" rel="noopener">Supplier website</a></div>`;
     modal.show();
@@ -41,13 +41,13 @@
   function renderHistory(){const history=Store.get("history").slice().reverse();$("historyResults").innerHTML=history.length?history.map(h=>`<div class="recent-item"><span class="recent-icon"><i class="bi bi-clock-history"></i></span><div><div class="recent-term">${esc(h.term)}</div><div class="recent-meta">${esc(h.date)}</div></div><button class="btn btn-sm btn-outline-primary" data-action="repeat" data-term="${esc(h.term)}">Search again</button></div>`).join(""):empty("No search history","Your searches will appear here.","clock-history");}
   document.addEventListener("click",e=>{const page=e.target.closest("[data-page]");if(page){e.preventDefault();showPage(page.dataset.page);return;}const action=e.target.closest("[data-action]");if(!action)return;const {action:act,id,term}=action.dataset;if(act==="details")showDetails(id);if(act==="save")toggleSaved(id);if(act==="compare")toggleCompare(id);if(act==="repeat")doSearch(term);});
   $("dashboardSearchForm").addEventListener("submit",e=>{e.preventDefault();doSearch($("dashboardSearchInput").value);});
-  $("searchForm").addEventListener("submit",e=>{e.preventDefault();doSearch($("searchInput").value);});
   $("categoryFilter").innerHTML+=[...new Set(PRODUCTS.map(p=>p.category))].sort().map(c=>`<option>${esc(c)}</option>`).join("");
-  $("categoryFilter").addEventListener("change",()=>renderSearch());$("sortFilter").addEventListener("change",()=>renderSearch());
+  $("categoryFilter").addEventListener("change",()=>renderSearch(currentQuery));$("sortFilter").addEventListener("change",()=>renderSearch(currentQuery));
   $("clearCompareBtn").addEventListener("click",()=>{Store.set("compare",[]);refreshCurrent();notify("Comparison cleared.");});
-  $("clearHistoryBtn").addEventListener("click",()=>{Store.set("history",[]);renderHistory();renderDashboard();notify("Search history cleared.");});
-  $("menuBtn").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+  $("clearHistoryBtn").addEventListener("click",()=>{Store.set("history",[]);renderDashboard();notify("Search history cleared.");});
+  const hour=new Date().getHours();
+  $("greeting").textContent=`Good ${hour<12?"morning":hour<17?"afternoon":"evening"}`;
   $("todayDate").textContent=new Date().toLocaleDateString("en-KE",{weekday:"short",day:"numeric",month:"short",year:"numeric"});
   $("compareCount").textContent=Store.get("compare").length;
-  renderDashboard();renderSearch("");
+  renderDashboard();renderSearch();
 })();
