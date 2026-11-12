@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><p class="kicker">AUDIT TRAIL</p><h1>History</h1><p class="muted">Searches, decisions and RFQ drafts, newest first.</p></div>
+  <a class="btn btn-primary" href="/history.csv">Export decisions (CSV)</a>
+</div>
+
+<div class="section-head"><h2>Decisions</h2></div>
+<div class="card table-wrap">
+  <table class="table">
+    <thead><tr><th>Date</th><th>Search</th><th>Compared</th><th>Chosen</th><th>Total incl. VAT</th><th>Reason</th><th>By</th></tr></thead>
+    <tbody>
+    {% for d in decisions %}
+      <tr>
+        <td>{{ (d.decided_at or d.created_at)|when }}</td>
+        <td><a href="/?id={{ d.search_id }}">{{ d.query }}</a></td>
+        <td><a href="/compare/{{ d.id }}">{{ d.offers|length }} offers</a></td>
+        <td>{% if d.chosen_offer %}<strong>{{ d.chosen_offer.supplier }}</strong><div class="small muted">{{ d.chosen_offer.name }}</div>{% else %}<span class="muted">Not decided</span>{% endif %}</td>
+        <td>{{ d.chosen_offer.total_incl_vat|kes if d.chosen_offer and d.chosen_offer.total_incl_vat is not none else '-' }}</td>
+        <td>{{ d.reason or '' }}</td>
+        <td>{{ d.user }}</td>
+      </tr>
+    {% else %}<tr><td colspan="7" class="muted">No comparisons yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="grid-2">
+  <section>
+    <div class="section-head"><h2>Searches</h2></div>
+    <div class="card list">
+      {% for s in searches %}
+      <a class="list-row" href="/?id={{ s.id }}"><span><strong>{{ s.query }}</strong><small>{{ s.user }} · {{ s.created_at|when }}</small></span><span class="chip">{{ s.n }} offers</span></a>
+      {% else %}<p class="muted pad">No searches yet.</p>{% endfor %}
+    </div>
+  </section>
+  <section>
+    <div class="section-head"><h2>RFQ drafts</h2></div>
+    <div class="card list">
+      {% for q in rfqs %}
+      <details class="list-row rfq-row"><summary><strong>{{ q.subject }}</strong><small>{{ q.supplier or 'No supplier' }} · {{ q.user }} · {{ q.created_at|when }}</small></summary><pre>{{ q.body }}</pre></details>
+      {% else %}<p class="muted pad">No RFQ drafts yet.</p>{% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

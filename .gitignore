@@ -1,0 +1,91 @@
+# ---------------------------------------------------------------
+# Local tool settings (never committed)
+# ---------------------------------------------------------------
+.claude/
+.claude-*/
+.claudeignore
+CLAUDE*.md
+**/CLAUDE*.md
+.mcp.json
+.cursor/
+.cursor*
+.copilot/
+.github/copilot*
+.github/instructions/
+.github/prompts/
+.github/chatmodes/
+.codex/
+AGENTS*.md
+**/AGENTS*.md
+.gemini/
+GEMINI*.md
+.windsurf/
+.windsurfrules
+.codeium/
+.continue/
+.continuerc.json
+.aider*
+.cline/
+.clinerules
+.clinerules/
+.roo/
+.roomodes
+.amazonq/
+.kiro/
+.tabnine/
+.tabnine_root
+.zed/
+.aiassistant/
+.junie/
+.augment/
+.augmentignore
+.qodo/
+.trae/
+.zencoder/
+.devin/
+.openhands/
+.sourcegraph/
+.supermaven/
+.codegpt/
+.tabby/
+.bolt/
+.ai/
+.llm/
+*.aichat
+.specstory/
+
+# ---------------------------------------------------------------
+# Secrets and local settings
+# ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# ---------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# ---------------------------------------------------------------
+# App data
+# ---------------------------------------------------------------
+*.db
+*.db-journal
+*.sqlite3
+
+# ---------------------------------------------------------------
+# Editors and OS
+# ---------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,92 @@
+# Tier 1 suppliers (fixed list). Findings from the website investigation on
+# 2026-11-12 (ProcureFind.md section 13.5). Edit here, then restart the app.
+#
+# vat_basis: excl | incl | unknown   (unknown = flagged, never guessed)
+# status:    active | rfq_only | blocked
+# adapter:   module in adapters/ (none for rfq_only)
+
+- key: network_options
+  name: Network Options & Solutions
+  tier: 1
+  website: https://network-options.co.ke/
+  location: Nairobi
+  vat_basis: excl
+  vat_evidence: Prices shown as "6,000.00 KSh +VAT".
+  adapter: network_options
+  search_url: https://network-options.co.ke/wp-json/wc/store/v1/products?search={query}&per_page=20
+  categories: [networking, telephony, cabling, power]
+  status: active
+  checked: 2026-11-12
+  notes: >
+    WordPress + WooCommerce (WoodMart theme), SiteGround hosting. Uses the
+    WooCommerce Store API (JSON). Prices in the API are in cents
+    (currency_minor_unit 2). robots.txt allows product and search pages.
+    Many Grandstream switches have no public price.
+
+- key: ctc_solutions
+  name: City Telecommunication Centre (CTC)
+  tier: 1
+  website: https://ctcsolutions.co.ke/
+  location: Nairobi
+  vat_basis: excl
+  vat_evidence: Prices shown as "KSh8,000 Excl. Tax".
+  adapter: ctc_solutions
+  search_url: https://ctcsolutions.co.ke/wp-json/wc/store/v1/products?search={query}&per_page=20
+  categories: [networking, wireless, tools]
+  status: active
+  checked: 2026-11-12
+  notes: >
+    Company name on the site: City Telecommunication Center Ltd.
+    WordPress + WooCommerce (Elementor), SiteGround hosting. Uses the
+    WooCommerce Store API (JSON); prices in whole shillings
+    (currency_minor_unit 0); SKUs usually empty. SiteGround bot protection
+    sometimes refuses requests (HTTP 403); shown as "didn't respond".
+
+- key: optace
+  name: Optace Networks
+  tier: 1
+  website: https://optacenetworks.com/
+  location: Nairobi
+  vat_basis: excl
+  vat_evidence: >
+    Product pages show "8,900 KES Excl VAT" and the cart adds a separate
+    "VAT (16%)" line. Pending business confirmation (section 14).
+  adapter: optace
+  search_url: https://optacenetworks.com/
+  categories: [networking, wireless, cabling, security]
+  status: active
+  checked: 2026-11-12
+  notes: >
+    Custom Next.js site. Each page embeds the full product list (about 515
+    items: name, slug, price); the site's own search box filters that list,
+    so ProcureFind fetches it once per cache period and searches it locally.
+    Price 0 = "Call for Quote". Stock is not shown. No robots.txt.
+
+- key: nile_computers
+  name: Nile Computers
+  tier: 1
+  website: https://nilecomputers.co.ke/
+  location: ""
+  vat_basis: unknown
+  adapter:
+  categories: [computers, laptops]
+  status: rfq_only
+  checked: 2026-11-12
+  notes: >
+    Website down: the hosting account is suspended (redirects to
+    /cgi-sys/suspendedpage.cgi). RFQ drafts only until the site is back.
+
+- key: om_it
+  name: OM IT
+  tier: 1
+  website: https://om.ke/
+  location: ""
+  vat_basis: unknown
+  adapter:
+  categories: [computers, servers]
+  status: rfq_only
+  checked: 2026-11-12
+  notes: >
+    Website broken: every page returns WordPress "There has been a critical
+    error on this website" (HTTP 500). WooCommerce is installed but its
+    Store API lists no products. RFQ drafts only until the site is fixed.

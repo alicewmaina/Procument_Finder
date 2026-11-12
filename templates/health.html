@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Status{% endblock %}
+{% block content %}
+<div class="page-head"><div><p class="kicker">STATUS</p><h1>System status</h1><p class="muted">App, AI server and supplier websites. Also available as JSON: <a href="/health?format=json">/health?format=json</a>.</p></div></div>
+<div class="status-grid">
+  <div class="card status"><span class="dot dot-ok"></span><div><strong>App</strong><div class="small muted">Running</div></div></div>
+  <div class="card status"><span class="dot {{ 'dot-ok' if h.database else 'dot-bad' }}"></span><div><strong>Database</strong><div class="small muted">{{ 'OK' if h.database else 'Not reachable' }}</div></div></div>
+  <div class="card status"><span class="dot {{ 'dot-ok' if h.ai.ok else 'dot-bad' }}"></span><div><strong>AI ({{ h.ai.model }})</strong><div class="small muted">{{ h.ai.detail }}{% if not h.ai.ok %}. Plain summaries and template RFQs are used instead.{% endif %}</div></div></div>
+  <div class="card status"><span class="dot dot-ok"></span><div><strong>Supplier prices</strong><div class="small muted">{{ 'Saved pages (practice)' if h.supplier_source == 'fixtures' else 'Live websites' }}</div></div></div>
+</div>
+<div class="section-head"><h2>Supplier websites</h2></div>
+<div class="card table-wrap">
+  <table class="table">
+    <thead><tr><th>Supplier</th><th>Setting</th><th>Website</th></tr></thead>
+    <tbody>
+    {% for s in h.suppliers %}
+      <tr><td>{{ s.name }}</td><td>{{ 'Live search' if s.status == 'active' else 'RFQ only' }}</td>
+        <td><span class="dot {{ 'dot-ok' if s.ok else 'dot-bad' }}"></span> {{ s.detail }}
+        {% if s.status == 'rfq_only' and s.ok and h.supplier_source == 'live' %}<div class="small">Site is reachable again: re-check it and update <code>suppliers.yaml</code>.</div>{% endif %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
