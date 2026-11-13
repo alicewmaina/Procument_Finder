@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}RFQ draft{% endblock %}
+{% block content %}
+<div class="page-head"><div>
+  <p class="kicker">REQUEST FOR QUOTATION</p>
+  <h1>Draft an RFQ</h1>
+  <p class="muted">For items with no public price. ProcureFind drafts the message; you copy it into email or WhatsApp and send it yourself.</p>
+</div></div>
+
+<div class="grid-2">
+  <form class="card form" method="post" action="/rfq">
+    <label>Item<input name="item" value="{{ pre.item }}" required maxlength="200"></label>
+    <label>Specification<textarea name="specs" rows="3" maxlength="1000" placeholder="Model, size, colour, standards…">{{ pre.specs }}</textarea></label>
+    <div class="row-2">
+      <label>Quantity<input name="quantity" type="number" min="1" value="{{ pre.quantity }}"></label>
+      <label>Required by<input name="required_by" type="date" value="{{ pre.required_by }}"></label>
+    </div>
+    <label>Supplier<input name="supplier" value="{{ pre.supplier }}" list="supplierList" maxlength="120"></label>
+    <datalist id="supplierList">{% for s in suppliers %}<option>{{ s.name }}</option>{% endfor %}</datalist>
+    <label>Delivery location<input name="delivery_location" value="{{ pre.delivery_location }}" maxlength="120" placeholder="e.g. Angani office, Nairobi"></label>
+    <label>Product page (optional)<input name="product_url" value="{{ pre.product_url }}" maxlength="500"></label>
+    <button class="btn btn-primary" type="submit">{{ 'Redraft' if draft else 'Draft RFQ' }}</button>
+  </form>
+
+  <section class="card">
+    {% if draft %}
+      <div class="summary-head"><h2>Draft</h2><span class="chip">{{ 'AI-worded' if draft.source == 'ai' else 'Standard template' }}</span></div>
+      {% if draft.warning %}<p class="small muted">{{ draft.warning }}</p>{% endif %}
+      <label>Subject<input id="rfqSubject" value="{{ draft.subject }}" readonly></label>
+      <label>Message<textarea id="rfqBody" rows="18">{{ draft.body }}</textarea></label>
+      <div class="btn-row">
+        <button type="button" class="btn btn-gold" data-copy="all">Copy subject + message</button>
+        <button type="button" class="btn btn-ghost" data-copy="body">Copy message only</button>
+        <span class="small muted" id="copied" role="status"></span>
+      </div>
+      <p class="small muted">Saved to history. Check the details before sending.</p>
+    {% else %}
+      <div class="empty"><h2>No draft yet</h2><p class="muted">Fill in the item and press <strong>Draft RFQ</strong>. The draft always asks the supplier to say whether prices include VAT.</p></div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.querySelectorAll('[data-copy]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var body = document.getElementById('rfqBody').value, subj = document.getElementById('rfqSubject').value;
+    var text = b.dataset.copy === 'all' ? 'Subject: ' + subj + '\n\n' + body : body;
+    var done = function () { document.getElementById('copied').textContent = 'Copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+    else { fallback(text); done(); }
+  });
+});
+function fallback(text) { var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); try { document.execCommand('copy') } catch (e) {} t.remove(); }
+</script>
+{% endblock %}

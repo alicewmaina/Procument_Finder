@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Suppliers{% endblock %}
+{% macro score_badge(r) -%}
+<span class="score score-{{ 'blocked' if r.blocked else ('hi' if r.score >= 70 else ('mid' if r.score >= 45 else 'lo')) }}" title="Rating out of 100">{{ 'Blocked' if r.blocked else r.score }}</span>
+{%- endmacro %}
+{% macro reasons(r) -%}
+<details class="reasons">
+  <summary>Why {{ r.score }}?<span class="muted"> · based on {{ r.evidence }} of 100 points' worth of checks</span></summary>
+  {% if r.flags %}<ul class="flag-list">{% for f in r.flags %}<li>{{ f }}</li>{% endfor %}</ul>{% endif %}
+  {% for part in ['Legitimacy', 'Prices', 'Reputation'] %}
+  <div class="reason-part"><strong>{{ {'Legitimacy': 'Legitimacy', 'Prices': 'Price transparency & competitiveness', 'Reputation': 'Reputation'}[part] }}</strong> <span class="muted">{{ r.parts[part] }} pts</span></div>
+  <ul class="reason-list">
+    {% for x in r.reasons if x.part == part %}
+    <li class="{{ 'is-plus' if x.points else ('is-na' if not x.assessed else 'is-zero') }}"><span class="pts">{% if x.assessed and x.max %}+{{ x.points }}/{{ x.max }}{% else %}n/a{% endif %}</span>{{ x.text }}</li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</details>
+{%- endmacro %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Suppliers</h1>
+    <p class="muted">Tier 1 suppliers are Angani's trusted list. Tier 2 and 3 are found near the search location on OpenStreetMap or added by procurement, then checked and rated. Every rating point is explained.</p>
+  </div>
+</div>
+
+<div class="tier-legend">
+  <div><span class="tier-tag t1">Tier 1</span> Trusted: Angani's existing suppliers. Always shown first.</div>
+  <div><span class="tier-tag t2">Tier 2</span> Verified: working website, mapped business details, no red flags.</div>
+  <div><span class="tier-tag t3">Tier 3</span> Unverified: found, but with little public evidence. Shown for comparison.</div>
+  <div><span class="tier-tag tb">Blocked</span> On the PPRA debarred list. Never shown as an option.</div>
+</div>
+
+<div class="section-head"><h2>Tier 1 · Trusted</h2><span class="muted small">Settings live in <code>suppliers.yaml</code></span></div>
+<div class="supplier-grid">
+  {% for t in tier1 %}{% set s = t.s %}
+  <article class="card supplier">
+    <div class="supplier-top">
+      {{ score_badge(t.rating) }}
+      <div class="supplier-title">
+        <h2>{{ s.name }}</h2>
+        <a href="{{ s.website }}" target="_blank" rel="noopener" class="small">{{ s.website|host }}</a>
+      </div>
+      {% if s.active %}<span class="chip chip-green">Live prices</span>{% else %}<span class="chip chip-amber">RFQ only</span>{% endif %}
+    </div>
+    <dl>
+      <dt>Location</dt><dd>{{ s.location or 'Not known' }}</dd>
+      <dt>VAT basis</dt><dd>{% if s.vat_basis == 'excl' %}Prices exclude VAT (ProcureFind adds {{ vat_pct }}%){% elif s.vat_basis == 'incl' %}Prices include VAT{% else %}<span class="flag">Unknown: totals not shown until confirmed</span>{% endif %}</dd>
+      <dt>Categories</dt><dd>{{ s.categories|join(', ') or '-' }}</dd>
+    </dl>
+    {% if s.notes %}<p class="small muted">{{ s.notes }}</p>{% endif %}
+    {{ reasons(t.rating) }}
+    <a class="btn btn-sm btn-ghost" href="/rfq?supplier={{ s.key }}">Draft RFQ</a>
+  </article>
+  {% endfor %}
+</div>
+
+<div class="section-head" id="directory">
+  <h2>Nearby suppliers · {{ state.label or place }}</h2>
+  <form class="inline-form" method="get" action="/suppliers">
+    <input name="location" value="{{ place }}" list="locations" aria-label="Location">
+    <datalist id="locations"><option>Nairobi</option><option>Mombasa</option><option>Kisumu</option><option>Nakuru</option><option>Eldoret</option></datalist>
+    <button class="btn btn-sm btn-ghost">Show</button>
+  </form>
+</div>
+<div class="card dir-status">
+  <div>
+    {% if state.status == 'running' %}<span class="status-dot is-wait"></span> <strong>Updating from OpenStreetMap…</strong> this can take a few minutes. Reload the page to see progress.
+    {% elif state.status == 'ok' %}<span class="status-dot is-ok"></span> <strong>{{ rows|length }} suppliers</strong> found in {{ state.label }} · updated {{ state.ran_at|when }} UTC{% if state.stale %} (due for refresh){% endif %}
+    {% elif state.status == 'error' %}<span class="status-dot is-bad"></span> <strong>Couldn't load from OpenStreetMap:</strong> {{ state.detail }}
+    {% else %}<span class="status-dot"></span> Not loaded yet{% endif %}
+    <div class="small muted">{{ counts['2'] }} verified (Tier 2) · {{ counts['3'] }} unverified (Tier 3){% if counts.blocked %} · {{ counts.blocked }} blocked{% endif %} · {{ counts.web }} with a website ·
+      PPRA debarred list: {{ debarred.count }} firms{% if debarred.fetched_at %}, checked {{ debarred.fetched_at|when }} UTC{% endif %}.
+      Each search checks a few more supplier websites.</div>
+  </div>
+  <form method="post" action="/suppliers/refresh"><input type="hidden" name="location" value="{{ place }}"><button class="btn btn-sm btn-primary" {{ 'disabled' if state.status == 'running' }}>Update now</button></form>
+</div>
+
+{% if rows %}
+<div class="card table-wrap">
+  <table class="table dir-table">
+    <thead><tr><th>Supplier</th><th>Tier</th><th>Rating</th><th>Website</th><th>Contact</th><th>Distance</th><th></th></tr></thead>
+    <tbody>
+    {% for r in rows %}
+      <tr class="{{ 'is-blocked' if r.rating.blocked }}">
+        <td><strong>{{ r.name }}</strong><div class="small muted">{{ r.kind }}{% if r.address %} · {{ r.address }}{% endif %}{% if r.source == 'added' %} · added by {{ r.added_by or 'procurement' }}{% endif %}</div>
+          {% if r.rating.flags %}<div class="small flag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg> {{ r.rating.flags|join(' · ') }}</div>{% endif %}
+          {{ reasons(r.rating) }}</td>
+        <td>{% if r.rating.blocked %}<span class="tier-tag tb">Blocked</span>{% else %}<span class="tier-tag t{{ r.rating.tier }}">Tier {{ r.rating.tier }}</span>{% endif %}</td>
+        <td>{{ score_badge(r.rating) }}</td>
+        <td>{% if r.website %}<a href="{{ r.website }}" target="_blank" rel="noopener">{{ r.website|host }}</a>{% endif %}<div class="small muted">{{ r.site }}</div></td>
+        <td class="small">{{ r.phone or '' }}{% if r.email %}<div>{{ r.email }}</div>{% endif %}{% if not r.phone and not r.email %}<span class="muted">-</span>{% endif %}</td>
+        <td class="small">{{ '%.1f km'|format(r.distance_km) if r.distance_km is not none else '-' }}{% if r.osm_url %}<div><a href="{{ r.osm_url }}" target="_blank" rel="noopener">map</a></div>{% endif %}</td>
+        <td>{% if not r.rating.blocked %}<a class="btn btn-sm btn-ghost" href="/rfq?supplier={{ r.id|urlencode }}">RFQ</a>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="small muted attribution">Supplier locations and contacts: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> (ODbL). Debarment: <a href="https://ppra.go.ke/debarred-firms/" target="_blank" rel="noopener">PPRA</a>.</p>
+{% endif %}
+
+<div class="section-head" id="add"><h2>Add a supplier</h2></div>
+<form class="card form add-form" method="post" action="/suppliers/add">
+  <p class="muted small">Know a supplier that isn't listed? Add it by website. ProcureFind checks the website, rates it and, if it has a readable online shop, includes its prices in searches.</p>
+  <div class="add-grid">
+    <label>Name<input name="name" required maxlength="120"></label>
+    <label>Website<input name="website" required maxlength="200" placeholder="https://…"></label>
+    <label>Location<input name="location" value="{{ place }}" maxlength="60"></label>
+    <label>Phone <span class="muted">(optional)</span><input name="phone" maxlength="40"></label>
+    <label>Email <span class="muted">(optional)</span><input name="email" type="email" maxlength="120"></label>
+  </div>
+  <button class="btn btn-primary" type="submit">Add and check</button>
+</form>
+{% endblock %}

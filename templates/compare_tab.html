@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Compare{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Compare</h1>
+    <p class="muted">Collect up to {{ max_compare }} offers from any search with <strong>+ Compare</strong>, then compare them side by side on total cost including VAT.</p>
+  </div>
+</div>
+
+<section class="card basket">
+  <div class="card-head">
+    <h2>Ready to compare</h2>
+    <div class="btn-row" id="basketActions" hidden>
+      <button type="button" class="btn btn-ghost btn-sm" data-clear-basket>Clear all</button>
+      <button type="button" class="btn btn-primary btn-sm" id="basketGo" data-compare-now>Compare now</button>
+    </div>
+  </div>
+  <div id="basketList"></div>
+  <div class="empty" id="basketEmpty">
+    <div class="empty-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="16" rx="1.5"/></svg></div>
+    <h3>Nothing to compare yet</h3>
+    <p class="muted">Search for an item and press <strong>+ Compare</strong> on the offers you want to weigh up.</p>
+    <a class="btn btn-primary" href="/">Search suppliers</a>
+  </div>
+</section>
+
+<div class="section-head"><h2>Past comparisons</h2>{% if past %}<a href="/history.csv">Export decisions (CSV)</a>{% endif %}</div>
+{% if past %}
+<div class="card list">
+  {% for c in past %}
+  <a class="list-row" href="/compare/{{ c.id }}">
+    <span class="row-main"><strong>{{ c.query or 'Comparison' }}</strong>
+      <small>{{ c.offers|length }} offers: {{ c.offers|map(attribute='supplier')|unique|join(', ') }} · {{ c.created_at|when }}</small></span>
+    {% if c.chosen_offer %}<span class="chip chip-green">Chose {{ c.chosen_offer.supplier }}</span>{% else %}<span class="chip">Not decided</span>{% endif %}
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card empty-inline"><p class="muted">No comparisons yet.</p></div>
+{% endif %}
+{% endblock %}

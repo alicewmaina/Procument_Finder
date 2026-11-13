@@ -1,0 +1,1342 @@
+{
+"version": 0.6,
+"generator": "Overpass API 0.7.62.11 87bfad18",
+"osm3s": {
+"timestamp_osm_base": "2026-06-01T08:52:28Z",
+"timestamp_areas_base": "2026-06-01T08:52:28Z",
+"copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+},
+"elements": [
+{
+"type": "node",
+"id": 612007261,
+"lat": -1.3119144,
+"lon": 36.7885888,
+"tags": {
+"name": "Luzon Communication",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612007273,
+"lat": -1.3122488,
+"lon": 36.7889795,
+"tags": {
+"check_date": "2023-05-11",
+"name": "Huduma Bora Communication",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612007487,
+"lat": -1.311433,
+"lon": 36.7882005,
+"tags": {
+"check_date": "2023-05-11",
+"name": "Emirates Computer Services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 612007737,
+"lat": -1.3129198,
+"lon": 36.7985309,
+"tags": {
+"name": "Coner Point Stalls",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612007765,
+"lat": -1.3128194,
+"lon": 36.7984762,
+"tags": {
+"check_date": "2023-04-01",
+"name": "Igenia Phones Repair",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612008406,
+"lat": -1.3085101,
+"lon": 36.7818268,
+"tags": {
+"check_date": "2023-05-02",
+"name": "Makina computer services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 612008435,
+"lat": -1.3123088,
+"lon": 36.7782496,
+"tags": {
+"name": "Electronic Shop",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612008437,
+"lat": -1.3127139,
+"lon": 36.7793563,
+"tags": {
+"check_date": "2023-05-02",
+"name": "CJ Computer Services",
+"notes": "Printing/photocopy services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 612008504,
+"lat": -1.3097818,
+"lon": 36.7752757,
+"tags": {
+"check_date": "2023-05-02",
+"internet_access": "yes",
+"internet_access:fee": "no",
+"name": "Geonet cyber cafe",
+"opening_hours": "Mo-Fr 08:30-20:00",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 612008528,
+"lat": -1.3126519,
+"lon": 36.7892935,
+"tags": {
+"check_date": "2023-05-11",
+"name": "Computer Services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 612008699,
+"lat": -1.3143409,
+"lon": 36.7999847,
+"tags": {
+"check_date": "2023-03-27",
+"name": "Frados mobile Repaire",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612008702,
+"lat": -1.3131365,
+"lon": 36.8003393,
+"tags": {
+"check_date": "2023-05-04",
+"name": "Fine tech Turbo",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612008711,
+"lat": -1.3126722,
+"lon": 36.7999482,
+"tags": {
+"check_date": "2023-05-04",
+"name": "JMJ Battery chaging",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612008798,
+"lat": -1.3143003,
+"lon": 36.7821746,
+"tags": {
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612008818,
+"lat": -1.314722,
+"lon": 36.7844099,
+"tags": {
+"name": "Sammy Electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612009096,
+"lat": -1.314752,
+"lon": 36.7841913,
+"tags": {
+"amenity": "pharmacy",
+"check_date": "2023-05-02",
+"contact:phone": "0723226629",
+"dispensing": "yes",
+"health_facility:referals": "KNH",
+"health_facility:type": "chemist_dispensing",
+"healthcare": "pharmacy",
+"medical_staff:pharmacist": "2",
+"name": "Mizima Chemist",
+"opening_hours": "08:00-20:00",
+"operational_status": "operational",
+"operational_status:electricity": "often",
+"operator:type": "private",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612009119,
+"lat": -1.3141781,
+"lon": 36.8013486,
+"tags": {
+"check_date": "2023-04-03",
+"name": "phone repair",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612009128,
+"lat": -1.3152503,
+"lon": 36.8031365,
+"tags": {
+"check_date": "2023-03-27",
+"name": "phone shop",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612009368,
+"lat": -1.3137287,
+"lon": 36.7823936,
+"tags": {
+"name": "Rail Side Electronics",
+"opening_hours": "07:00-21:00",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612009702,
+"lat": -1.314407,
+"lon": 36.7843168,
+"tags": {
+"name": "Nyando TV and Radio Clinic",
+"opening_hours": "07:00-21:00",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612009824,
+"lat": -1.3084392,
+"lon": 36.7730609,
+"tags": {
+"check_date": "2023-04-21",
+"internet_access": "yes",
+"internet_access:fee": "no",
+"name": "digits cyber cafe",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 612009839,
+"lat": -1.3114245,
+"lon": 36.7766907,
+"tags": {
+"check_date": "2023-05-02",
+"name": "japanese electrical welding place",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 612010507,
+"lat": -1.3138731,
+"lon": 36.7770883,
+"tags": {
+"check_date": "2023-05-02",
+"name": "Mobile Repair",
+"note": "ELECTRICAL SHOP",
+"opening_hours": "07:00-18:00",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 875506791,
+"lat": -1.2981425,
+"lon": 36.7993391,
+"tags": {
+"addr:housename": "Bemuda Plaza",
+"addr:street": "Ngong Road",
+"name": "Security Risk Solutions Ltd.",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1420048698,
+"lat": -1.2797783,
+"lon": 36.8127017,
+"tags": {
+"name": "cyber",
+"opening_hours": "Mo-Fr 08:30-20:00",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1432507882,
+"lat": -1.3154833,
+"lon": 36.8747701,
+"tags": {
+"name": "By faith electronics and mobile",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1432507894,
+"lat": -1.3175384,
+"lon": 36.8766508,
+"tags": {
+"name": "Dantech electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1432507931,
+"lat": -1.3146623,
+"lon": 36.8768121,
+"tags": {
+"name": "J -TECH electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1432507933,
+"lat": -1.3158505,
+"lon": 36.875484,
+"tags": {
+"name": "Jamrock electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1432508032,
+"lat": -1.3160997,
+"lon": 36.8757762,
+"tags": {
+"name": "New vision electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1432508059,
+"lat": -1.3153182,
+"lon": 36.8745979,
+"tags": {
+"name": "Steventech electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1432508062,
+"lat": -1.3155947,
+"lon": 36.8749658,
+"tags": {
+"name": "Trench town sounds and kinyozi",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1432508069,
+"lat": -1.3191604,
+"lon": 36.8737693,
+"tags": {
+"name": "Wadaro electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1437347832,
+"lat": -1.3168766,
+"lon": 36.8769315,
+"tags": {
+"name": "Jatech computer services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1437348004,
+"lat": -1.3152361,
+"lon": 36.8693118,
+"tags": {
+"name": "cyber cafe",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1446059270,
+"lat": -1.3107333,
+"lon": 36.8687707,
+"tags": {
+"name": "Bekim electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1446059304,
+"lat": -1.3162206,
+"lon": 36.8685971,
+"tags": {
+"name": "Cyber Caffe",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1446059328,
+"lat": -1.3099245,
+"lon": 36.8738556,
+"tags": {
+"name": "Cyber Caffe",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1493484796,
+"lat": -1.3125169,
+"lon": 36.8499041,
+"tags": {
+"name": "Electronic repair shop",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1493484816,
+"lat": -1.3112641,
+"lon": 36.8450533,
+"tags": {
+"name": "Jaylex Computer",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1722620242,
+"lat": -1.3145027,
+"lon": 36.7755817,
+"tags": {
+"name": "Cool Breeze Music store",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 1727588876,
+"lat": -1.3141608,
+"lon": 36.7823347,
+"tags": {
+"name": "link computer service",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 1775825791,
+"lat": -1.3075691,
+"lon": 36.7827405,
+"tags": {
+"check_date": "2023-04-17",
+"name": "Tid cyber cafe",
+"opening_hours": "08:00-18:00",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2001079037,
+"lat": -1.311623,
+"lon": 36.8420343,
+"tags": {
+"name": "Softec digital systems",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 2268445592,
+"lat": -1.2530126,
+"lon": 36.8688364,
+"tags": {
+"email": "jambo@flueflaresolution.com",
+"name": "blueflare solution",
+"opening_hours": "Mo-Fr 08:30-20:00",
+"owner": "herman agida",
+"services": "college and computer services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2405883331,
+"lat": -1.239684,
+"lon": 36.8981989,
+"tags": {
+"name": "Angian communication",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2405883334,
+"lat": -1.2404354,
+"lon": 36.8958005,
+"tags": {
+"name": "Cyber cafe",
+"name:it": "Cyber Caf\u00e9",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2405883341,
+"lat": -1.2398911,
+"lon": 36.8989708,
+"tags": {
+"name": "Mwangi",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2405885971,
+"lat": -1.2466468,
+"lon": 36.8833794,
+"tags": {
+"name": "Cyber Cafe",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2405885972,
+"lat": -1.2481626,
+"lon": 36.885789,
+"tags": {
+"name": "Cyber Cafe",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2405885977,
+"lat": -1.2466241,
+"lon": 36.8833181,
+"tags": {
+"name": "Electronic Shop",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 2405885978,
+"lat": -1.2479985,
+"lon": 36.8833267,
+"tags": {
+"name": "Electronic Shop",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 2405885979,
+"lat": -1.2470828,
+"lon": 36.8843442,
+"tags": {
+"name": "Evans Electronics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 2405885996,
+"lat": -1.2481843,
+"lon": 36.8854521,
+"tags": {
+"name": "Nyakas Electronics and Tele Comm",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 2405886004,
+"lat": -1.2460995,
+"lon": 36.8843607,
+"tags": {
+"name": "Super Computers Services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 2511495117,
+"lat": -1.298052,
+"lon": 36.7625159,
+"tags": {
+"name": "Samsung",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 2547485510,
+"lat": -1.2991851,
+"lon": 36.765335,
+"tags": {
+"name": "88mph Garage",
+"note": "co-working space",
+"office": "it"
+}
+},
+{
+"type": "node",
+"id": 2587602830,
+"lat": -1.2673373,
+"lon": 36.8170669,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Parklands Road",
+"name": "CompuLynx Head Office",
+"office": "it"
+}
+},
+{
+"type": "node",
+"id": 3506863457,
+"lat": -1.2688192,
+"lon": 36.8065534,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Greenway Road",
+"name": "Ericsson Kenya",
+"office": "telecommunication",
+"website": "https://www.ericsson.com/ke"
+}
+},
+{
+"type": "node",
+"id": 4198495590,
+"lat": -1.3097999,
+"lon": 36.8330792,
+"tags": {
+"addr:street": "Shikunga Road",
+"name": "Open Institute",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 4566703989,
+"lat": -1.3055542,
+"lon": 36.8329333,
+"tags": {
+"addr:postcode": "764",
+"addr:street": "Dunga Road",
+"email": "dynavoltltd@gmail.com",
+"internet_access": "wlan",
+"name": "Dynavolt Technology ( K ) CO.,LTD",
+"opening_hours": "Mo-Fr 08:30-05:30",
+"operator": "DYNAVOLT",
+"phone": "+254(0)705298888",
+"shop": "electronics",
+"website": "http://WWW.DYNAVOLT.CO.KE"
+}
+},
+{
+"type": "node",
+"id": 4674389391,
+"lat": -1.2822487,
+"lon": 36.8218171,
+"tags": {
+"addr:street": "Moi Avenue",
+"check_date": "2023-05-11",
+"name": "Technohub",
+"name:en": "Technohub",
+"opening_hours": "Mo-Sa 09:00-20:00",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 5070531026,
+"lat": -1.2843341,
+"lon": 36.8236558,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Kimathi Street",
+"name": "Anisuma",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5070531028,
+"lat": -1.2846328,
+"lon": 36.824018,
+"tags": {
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5328470142,
+"lat": -1.2600784,
+"lon": 36.8037236,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "Block B, 2nd Flr,",
+"addr:street": "Ring Road Parklands",
+"description": "Software Solutions and Map Development",
+"email": "info@dostum.co.ke",
+"name": "Dostum Solutions Limited",
+"office": "it",
+"opening_hours": "Mo-Fr 09:00-17:00",
+"phone": "+254 722 463 171",
+"smoking": "no",
+"website": "www.dostum.co.ke"
+}
+},
+{
+"type": "node",
+"id": 5328512330,
+"lat": -1.260743,
+"lon": 36.8042889,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Ring Road Parklands",
+"brand": "LG",
+"brand:wikidata": "Q162345",
+"name": "LG",
+"operator": "LG",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5339399047,
+"lat": -1.266078,
+"lon": 36.8020011,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "Delta Corner,",
+"addr:street": "Delta Corner Road",
+"name": "Oracle System Ltd",
+"office": "it"
+}
+},
+{
+"type": "node",
+"id": 5353018354,
+"lat": -1.2606566,
+"lon": 36.802125,
+"tags": {
+"name": "Hotpoint Appliances Ltd",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5360183815,
+"lat": -1.2251604,
+"lon": 36.840165,
+"tags": {
+"addr:housenumber": "White House Paul George",
+"name": "White House Paul George",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5360202697,
+"lat": -1.2616536,
+"lon": 36.8016382,
+"tags": {
+"addr:housenumber": "Sarit Centre, Lower ground Floor, Karuna Road, Nairobi, Nairobi",
+"name": "SAFARICOM SHOP SARIT CENTRE",
+"name:it": "Safaricom",
+"office": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 5360202704,
+"lat": -1.2616979,
+"lon": 36.8020978,
+"tags": {
+"addr:housenumber": "Sarit Centre, Nairobi",
+"branch": "Experience Store Sarit Centre",
+"brand": "Samsung",
+"brand:wikidata": "Q20718",
+"name": "Samsung",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5378545304,
+"lat": -1.2990278,
+"lon": 36.8138828,
+"tags": {
+"addr:housenumber": "Zep-Re Place, P.O. Box 66430 Kenya Rd, Nairobi",
+"name": "Huawei Tech. Investment Co. Ltd (Kenya)",
+"office": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 5414008523,
+"lat": -1.2983014,
+"lon": 36.7861678,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Kindaruma Road",
+"name": "Zuku Office",
+"office": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 5555073768,
+"lat": -1.284051,
+"lon": 36.8209596,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "JKUAT Towers,",
+"addr:street": "Banda Street",
+"brand": "Samsung",
+"brand:wikidata": "Q20718",
+"brand:wikipedia": "en:Samsung Electronics",
+"name": "Samsung",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5555073963,
+"lat": -1.2869568,
+"lon": 36.819236,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Kaunda Street",
+"name": "Telkom Shop",
+"office": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 5555101285,
+"lat": -1.2648263,
+"lon": 36.8044315,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "Mpaka House,",
+"addr:street": "Mpaka Road",
+"brand": "Samsung",
+"brand:wikidata": "Q20718",
+"name": "Samsung",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5555101286,
+"lat": -1.2639192,
+"lon": 36.8042164,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Woodvale Grove",
+"brand": "Samsung",
+"brand:wikidata": "Q20718",
+"name": "Samsung",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5654059641,
+"lat": -1.2826503,
+"lon": 36.8256658,
+"tags": {
+"addr:street": "Tsavo Road",
+"check_date": "2023-05-11",
+"name": "Kateson Limited",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 5865592987,
+"lat": -1.259248,
+"lon": 36.7983114,
+"tags": {
+"name": "Ensure services",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 5904885385,
+"lat": -1.3306555,
+"lon": 36.9240238,
+"tags": {
+"name": "Airtel",
+"office": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 6126743580,
+"lat": -1.269824,
+"lon": 36.8072609,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "Mirage Tower,",
+"addr:street": "Waiyaki Way",
+"brand": "Samsung",
+"brand:wikidata": "Q20718",
+"brand:wikipedia": "en:Samsung Electronics",
+"name": "Samsung",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 6207581208,
+"lat": -1.3269624,
+"lon": 36.8525462,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "Vision Plaza,",
+"addr:street": "Mombasa Road",
+"name": "Computer Planet",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 7130538085,
+"lat": -1.2762108,
+"lon": 36.8293034,
+"tags": {
+"addr:postcode": "00200",
+"addr:street": "Desai Road",
+"email": "info@bnt.co.ke",
+"name": "Bass N Treble",
+"opening_hours": "Mo-Sa 09:00-19:00",
+"phone": "0722519547",
+"shop": "electronics",
+"website": "https://www.bnt.co.ke/"
+}
+},
+{
+"type": "node",
+"id": 8327125350,
+"lat": -1.3297388,
+"lon": 36.8675962,
+"tags": {
+"alt_name": "samasource",
+"name": "Sama",
+"office": "it",
+"opening_hours": "24/7",
+"opening_hours:covid19": "restricted",
+"website": "https://www.sama.com/",
+"wikipedia": "en:Sama"
+}
+},
+{
+"type": "node",
+"id": 8442804608,
+"lat": -1.3004475,
+"lon": 36.7917667,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "005",
+"addr:postcode": "00200",
+"addr:street": "Karbarnet Road",
+"name": "Talinda East Africa",
+"office": "telecommunication",
+"opening_hours": "Mo-Sa 08:00-18:00",
+"operator": "Talinda Express",
+"phone": "+254700446536",
+"website": "www.talinda.net/shop"
+}
+},
+{
+"type": "node",
+"id": 8811431317,
+"lat": -1.2868,
+"lon": 36.7422517,
+"tags": {
+"condition": "good",
+"image": "https://kc.humanitarianresponse.info/attachment/original?media_file=mapkibera/attachments/1591178020695.jpg",
+"marketplace:type": "street_vendor",
+"name": "Malimali",
+"operational_status": "operational",
+"operator:description": "wanjohi_group",
+"operator:type": "private",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 8811465917,
+"lat": -1.28419,
+"lon": 36.7422567,
+"tags": {
+"condition": "good",
+"image": "https://kc.humanitarianresponse.info/attachment/original?media_file=mapkibera/attachments/1591175188851.jpg",
+"marketplace:type": "informal",
+"name": "Mali mali",
+"operational_status": "operational",
+"operator:type": "private",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 9443257603,
+"lat": -1.2930636,
+"lon": 36.7876931,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "00100",
+"addr:postcode": "00100",
+"addr:street": "Ring Road Kilimani",
+"check_date:currency:XBT": "2023-02-07",
+"currency:XBT": "yes",
+"name": "Fitro Kenya",
+"opening_hours": "Mo-Sa 08:00-18:00",
+"operator": "Alpha Snique",
+"payment:cash": "yes",
+"payment:coins": "yes",
+"payment:credit_cards": "yes",
+"payment:debit_cards": "yes",
+"payment:lightning": "no",
+"payment:lightning_contactless": "no",
+"payment:mastercard": "yes",
+"payment:onchain": "yes",
+"payment:visa": "yes",
+"phone": "+254790093587",
+"shop": "electronics",
+"website": "https://ftrokenya.com"
+}
+},
+{
+"type": "node",
+"id": 9800831894,
+"lat": -1.2798627,
+"lon": 36.9651332,
+"tags": {
+"name": "Safaricom Customer Care",
+"office": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 9963058430,
+"lat": -1.2597933,
+"lon": 36.7805637,
+"tags": {
+"level": "9",
+"name": "Sybyl",
+"office": "it",
+"opening_hours": "Mo-Fr 08:30-12:00,13:30-19:30; PH closed",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 10117889577,
+"lat": -1.2574773,
+"lon": 36.817986,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "4th Parklands Avenue",
+"name": "Almas Electronics",
+"opening_hours": "Mo-Su 09:00-21:00",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 10544053277,
+"lat": -1.331131,
+"lon": 36.9239787,
+"tags": {
+"name": "Salute iWorld",
+"shop": "electronics",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 11005644105,
+"lat": -1.2884395,
+"lon": 36.9741546,
+"tags": {
+"name": "Safaricom Customer care",
+"office": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 11340754569,
+"lat": -1.3047321,
+"lon": 36.820136,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Masaba Road",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 11340755269,
+"lat": -1.3048029,
+"lon": 36.8201711,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Masaba Road",
+"name": "kacher logistics",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 11436619644,
+"lat": -1.2856669,
+"lon": 36.827769,
+"tags": {
+"addr:city": "Nairobi",
+"addr:postcode": "00101",
+"addr:street": "Ronald Ngala Street",
+"check_date": "2026-04-10",
+"check_date:currency:XBT": "2026-04-13",
+"contact:facebook": "TCFAccessories",
+"contact:instagram": "tcfaccessories",
+"currency:XBT": "yes",
+"email": "support@tcfstore.com",
+"name": "TCF Accessories",
+"opening_hours": "Mo-Sa 06:00-20:00",
+"payment:lightning": "yes",
+"payment:lightning_contactless": "no",
+"payment:onchain": "yes",
+"phone": "+254 758 281 555",
+"shop": "electronics",
+"website": "https://www.tcfstore.com/"
+}
+},
+{
+"type": "node",
+"id": 12090408180,
+"lat": -1.2847144,
+"lon": 36.8270611,
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Luthuli Avenue",
+"check_date": "2024-08-03",
+"contact:email": "info@maliexpress.co.ke",
+"currency:XBT": "yes",
+"name": "Gitonga",
+"opening_hours": "Mo-Su 09:00-18:00",
+"payment:lightning": "yes",
+"payment:lightning_contactless": "no",
+"payment:onchain": "yes",
+"phone": "+254 07 4679 8798",
+"shop": "electronics",
+"website": "https://maliexpress.co.ke/"
+}
+},
+{
+"type": "node",
+"id": 12092047878,
+"lat": -1.2844901,
+"lon": 36.8255153,
+"tags": {
+"addr:city": "Nairobi",
+"addr:postcode": "00100",
+"addr:street": "Tom Mboya Street",
+"check_date": "2024-08-04",
+"currency:XBT": "yes",
+"name": "Steve",
+"opening_hours": "Mo-Su 09:00-20:00",
+"payment:lightning": "yes",
+"payment:lightning_contactless": "no",
+"payment:onchain": "yes",
+"phone": "+254 07 0365 5885",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 12157032571,
+"lat": -1.2808179,
+"lon": 36.8211486,
+"tags": {
+"name": "Takamori Computers",
+"shop": "computer"
+}
+},
+{
+"type": "node",
+"id": 12388653901,
+"lat": -1.2824377,
+"lon": 36.8294564,
+"tags": {
+"addr:housenumber": "101",
+"addr:postcode": "21759-00100",
+"addr:street": "Charles Rubia Road",
+"email": "lighthubventures@gmail.com",
+"internet_access": "wlan",
+"name": "Lighthub Electricals",
+"opening_hours": "Su-Fr 00:00-24:00",
+"phone": "0796693000",
+"shop": "electronics",
+"website": "http://www.lighthub.co.ke"
+}
+},
+{
+"type": "node",
+"id": 12676942742,
+"lat": -1.2819427,
+"lon": 36.8215483,
+"tags": {
+"addr:city": "Nairobi",
+"addr:housenumber": "The Bazaar Plaza",
+"addr:street": "Moi Avenue",
+"check_date": "2025-03-12",
+"currency:XBT": "yes",
+"email": "info@zentechelectronics.co.ke",
+"level": "10",
+"name": "Zentech Electronics Kenya",
+"payment:onchain": "yes",
+"phone": "+254 739 238 917",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 12886546502,
+"lat": -1.3366792,
+"lon": 36.8932185,
+"tags": {
+"addr:county": "Nairobi",
+"addr:location": "Embakasi East",
+"name": "Ramtons - Opp Eastern Bypass Toll Station",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 13048510078,
+"lat": -1.2569173,
+"lon": 36.8032358,
+"tags": {
+"addr:floor": "3",
+"brand": "Apple Store",
+"brand:wikidata": "Q421253",
+"check_date": "2025-08-04",
+"level": "2",
+"name": "Dilate iworld",
+"shop": "electronics",
+"short_name": "Apple"
+}
+},
+{
+"type": "node",
+"id": 13048693107,
+"lat": -1.331797,
+"lon": 36.9268451,
+"tags": {
+"check_date": "2025-08-04",
+"name": "Safaricom Outlet",
+"shop": "telecommunication"
+}
+},
+{
+"type": "node",
+"id": 13460764886,
+"lat": -1.2980819,
+"lon": 36.722624,
+"tags": {
+"name": "WikiTeq Solutions",
+"office": "it"
+}
+},
+{
+"type": "node",
+"id": 13460764888,
+"lat": -1.298365,
+"lon": 36.7227914,
+"tags": {
+"name": "FAIRTECH ELECTRONICS",
+"shop": "electronics"
+}
+},
+{
+"type": "node",
+"id": 13511605657,
+"lat": -1.2824839,
+"lon": 36.8234285,
+"tags": {
+"addr:city": "Nairobi",
+"addr:postcode": "00100",
+"addr:street": "Tom Mboya Street",
+"name": "Ubuntu Technologies Kenya",
+"opening_hours": "Mo-Sa 08:00-19:30",
+"phone": "+254704248996",
+"shop": "computer"
+}
+},
+{
+"type": "way",
+"id": 459762184,
+"center": {
+"lat": -1.2718208,
+"lon": 36.8103124
+},
+"tags": {
+"addr:city": "Nairobi",
+"addr:street": "Westlands Road",
+"building": "yes",
+"office": "it"
+}
+}
+]
+}

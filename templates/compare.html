@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Compare{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="kicker">COMPARISON</p>
+    <h1>{{ query or 'Compare offers' }}</h1>
+    <p class="muted">{{ c.offers|length }} offers{% if quantity > 1 %} · quantity {{ quantity }}{% endif %} · totals include {{ vat_pct }}% VAT</p>
+  </div>
+  <a class="btn btn-ghost" href="/compare">Back to Compare</a>
+</div>
+
+<section class="card summary" id="summary" data-url="/api/compare/{{ c.id }}/summary">
+  <div class="summary-head"><h2>Summary</h2><span class="chip" id="summarySource">{{ 'Plain summary' if practice else 'AI summary loading…' }}</span></div>
+  <p id="summaryText">{{ plain.summary }}</p>
+  <ul id="summaryNotes">{% for n in plain.notes %}<li>{{ n }}</li>{% endfor %}</ul>
+  <p class="small muted" id="summaryWarn"></p>
+</section>
+
+{% if c.units_differ %}<div class="alert alert-warn">Units differ between these offers (for example per metre and per box), so the totals can't be compared directly.</div>{% endif %}
+
+<div class="card table-wrap">
+  <table class="compare">
+    <thead><tr><th></th>{% for o in c.offers %}<th>{{ o.supplier }}<div class="small muted">Tier {{ o.tier }}</div></th>{% endfor %}</tr></thead>
+    <tbody>
+      <tr><th>Product</th>{% for o in c.offers %}<td><a href="{{ o.url }}" target="_blank" rel="noopener">{{ o.name }}</a></td>{% endfor %}</tr>
+      <tr><th>Model</th>{% for o in c.offers %}<td>{{ o.model or '-' }}</td>{% endfor %}</tr>
+      <tr><th>Same product?</th>{% for o in c.offers %}<td>{% if loop.first %}<span class="muted small">Reference</span>{% else %}
+        <span class="chip {{ 'chip-green' if o.match_verdict == 'same' else ('chip-amber' if o.match_verdict == 'similar' else 'chip-red') }}">{{ {'same': 'Same product', 'similar': 'Similar (check specs)', 'different': 'Different'}[o.match_verdict] }}</span>
+        <div class="small muted">{{ o.match_reason }}</div>{% endif %}</td>{% endfor %}</tr>
+      <tr><th>Listed price</th>{% for o in c.offers %}<td>"{{ o.price_text }}"<div class="small muted">VAT basis: {{ {'excl': 'excludes VAT', 'incl': 'includes VAT', 'unknown': 'unknown'}[o.vat_basis] }}</div></td>{% endfor %}</tr>
+      <tr class="row-key"><th>Total incl. VAT</th>{% for o in c.offers %}<td>
+        {% if o.no_public_price %}<span class="noprice">No public price</span>
+        {% elif o.total_incl_vat is none %}<span class="flag">VAT basis unknown</span>
+        {% else %}<strong class="{{ 'best' if o.total_incl_vat == c.best_total }}">{{ o.total_incl_vat|kes }}</strong>{% if o.total_incl_vat == c.best_total %} <span class="chip chip-green">Lowest</span>{% endif %}{% endif %}</td>{% endfor %}</tr>
+      {% if quantity > 1 %}<tr class="row-key"><th>× {{ quantity }}</th>{% for o in c.offers %}<td>{{ (o.total_incl_vat * quantity)|kes if o.total_incl_vat is not none else '-' }}</td>{% endfor %}</tr>{% endif %}
+      <tr><th>Unit</th>{% for o in c.offers %}<td>{{ o.unit_label }}{% if o.per_unit_incl_vat %}<div class="small muted">{{ o.per_unit_incl_vat|kes(2) }} per {{ 'metre' if o.unit_kind == 'metre' else 'piece' }}</div>{% endif %}</td>{% endfor %}</tr>
+      <tr><th>Stock</th>{% for o in c.offers %}<td>{{ (o.stock or 'not shown')|capitalize }}</td>{% endfor %}</tr>
+      <tr><th>Rating</th>{% for o in c.offers %}<td class="muted small">Tier {{ o.tier }} trusted supplier (ratings come in Phase 2)</td>{% endfor %}</tr>
+      <tr><th>Source</th>{% for o in c.offers %}<td><a href="{{ o.url }}" target="_blank" rel="noopener">{{ o.url|host }}</a><div class="small muted">fetched {{ o.fetched_at|when }} UTC</div></td>{% endfor %}</tr>
+      <tr><th></th>{% for o in c.offers %}<td>{% if o.no_public_price or o.total_incl_vat is none %}<a class="btn btn-sm btn-ghost" href="/rfq?search_id={{ o.search_id or c.search_id }}&offer={{ o.idx }}">Draft RFQ</a>{% endif %}</td>{% endfor %}</tr>
+    </tbody>
+  </table>
+</div>
+
+<section class="card choose">
+  <h2>Choose an offer</h2>
+  {% if c.chosen_offer %}<p class="alert alert-info">Already chosen: <strong>{{ c.chosen_offer.supplier }}</strong>: {{ c.reason }} ({{ c.user }}). Choosing again replaces it.</p>{% endif %}
+  <form method="post" action="/compare/{{ c.id }}/choose">
+    <div class="radio-row">
+      {% for o in c.offers %}<label class="radio"><input type="radio" name="offer" value="{{ loop.index0 }}" required {{ 'checked' if c.chosen_offer and c.chosen_offer.url == o.url }}> {{ o.supplier }}</label>{% endfor %}
+    </div>
+    <label>Reason (saved to the audit trail)<textarea name="reason" rows="2" required maxlength="1000" placeholder="e.g. Lowest total incl. VAT and in stock"></textarea></label>
+    <button class="btn btn-primary" type="submit">Save choice</button>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  var box = document.getElementById('summary');
+  if ({{ 'true' if practice else 'false' }}) return;
+  fetch(box.dataset.url, { method: 'POST' }).then(function (r) { return r.json() }).then(function (d) {
+    document.getElementById('summaryText').textContent = d.summary;
+    var ul = document.getElementById('summaryNotes'); ul.innerHTML = '';
+    (d.notes || []).forEach(function (n) { var li = document.createElement('li'); li.textContent = n; ul.appendChild(li); });
+    document.getElementById('summarySource').textContent = d.source === 'ai' ? 'AI summary (checked against the prices)' : 'Plain summary';
+    document.getElementById('summaryWarn').textContent = d.warning || '';
+  }).catch(function () {
+    document.getElementById('summarySource').textContent = 'Plain summary';
+    document.getElementById('summaryWarn').textContent = 'The AI summary is unavailable right now.';
+  });
+})();
+</script>
+{% endblock %}

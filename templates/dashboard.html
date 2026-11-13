@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}{{ form.q or 'Search' }}{% endblock %}
+{% block content %}
+<section class="welcome">
+  <h1 id="greeting">Hello</h1>
+  <p class="welcome-sub">What do you need to buy? ProcureFind checks {{ active|length }} trusted supplier websites and compares prices <strong>including {{ vat_pct }}% VAT</strong>.</p>
+  <form class="omni" id="searchForm" method="get" action="/" role="search">
+    <div class="omni-bar">
+      <svg class="omni-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" name="q" value="{{ form.q }}" maxlength="150" autocomplete="off" required
+             placeholder='Try "Ubiquiti NanoStation Loco M5" or "Cat6a patch cord 3m"' aria-label="Item, product or model">
+      <button type="button" class="omni-filters" id="filtersToggle" aria-expanded="false" aria-controls="filtersPanel" title="Price range, quantity and more">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span>Filters</span></button>
+      <button type="submit" class="omni-go" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    </div>
+    <div class="filters-panel" id="filtersPanel" hidden>
+      <label>Location<input name="location" value="{{ form.location }}" placeholder="Nairobi" list="locations"></label>
+      <datalist id="locations"><option>Nairobi</option><option>Mombasa</option><option>Kisumu</option><option>Anywhere in Kenya</option></datalist>
+      <label>Min price <span class="muted">(incl. VAT)</span><input name="min_price" value="{{ form.min_price }}" inputmode="numeric" placeholder="KES 0"></label>
+      <label>Max price <span class="muted">(incl. VAT)</span><input name="max_price" value="{{ form.max_price }}" inputmode="numeric" placeholder="KES 150,000"></label>
+      <label>Quantity<input name="quantity" type="number" min="1" value="{{ form.quantity }}"></label>
+      <label>Brand<input name="brand" value="{{ form.brand }}" placeholder="Optional"></label>
+    </div>
+  </form>
+  <div class="recent-chips" id="recentChips" {{ 'hidden' if not recent }}>
+    <span class="recent-label">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Recent</span>
+    {% set seen = [] %}
+    {% for s in recent %}{% if s.query|lower not in seen and seen|length < 6 %}{% set _ = seen.append(s.query|lower) %}
+    <a class="recent-chip" href="/?id={{ s.id }}" data-recent-q="{{ s.query }}">{{ s.query }} <span class="count">{{ s.n }}</span></a>
+    {% endif %}{% endfor %}
+  </div>
+</section>
+
+<section id="results" hidden>
+  <div class="banner">
+    <div class="banner-top">
+      <div>
+        <p class="banner-kicker">Results</p>
+        <h2 id="bannerQuery"></h2>
+        <p class="banner-meta" id="bannerMeta"></p>
+        <p class="banner-meta" id="savedNote" hidden>Saved search from <span id="savedWhen"></span> ·
+          <a href="/?q={{ form.q|urlencode }}">Search again for current prices</a></p>
+      </div>
+      <div class="banner-stats" id="bannerStats"></div>
+    </div>
+    <div class="supplier-status" id="supplierStatus"></div>
+  </div>
+
+  <div class="toolbar card">
+    <div class="chip-row" id="resultChips" role="group" aria-label="Filter results"></div>
+    <div class="toolbar-row">
+      <label class="toolbar-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="resultFilter" placeholder="Filter these results (e.g. model, colour, supplier)" aria-label="Filter these results"></label>
+      <select id="sortSelect" aria-label="Sort results"><option value="best">Best match</option><option value="price">Lowest price</option></select>
+    </div>
+  </div>
+
+  <div class="offers" id="offerList" aria-live="polite"></div>
+  <div id="nearby"></div>
+  <div id="notes"></div>
+</section>
+
+<section id="homeExtra">
+  <div class="section-head"><h2>Recent searches</h2>{% if recent %}<a href="/history">View all</a>{% endif %}</div>
+  {% if recent %}
+  <div class="tile-grid">
+    {% for s in recent[:6] %}
+    <a class="tile" href="/?id={{ s.id }}">
+      <span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+      <span class="tile-body"><strong>{{ s.query }}</strong><small>{{ s.n }} offer{{ '' if s.n == 1 else 's' }} · {{ s.created_at|when }}</small></span>
+      <svg class="tile-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card empty-inline">
+    <p>No searches yet. Try:
+      <a class="recent-chip" href="/?q=Ubiquiti+NanoStation+Loco+M5">Ubiquiti NanoStation Loco M5</a>
+      <a class="recent-chip" href="/?q=Cat6a+patch+cord+3m">Cat6a patch cord 3m</a>
+      <a class="recent-chip" href="/?q=mikrotik+switch">MikroTik switch</a></p>
+  </div>
+  {% endif %}
+
+  <div class="section-head"><h2>Suppliers searched</h2><a href="/suppliers">Details</a></div>
+  <div class="supplier-strip">
+    {% for s in active %}
+    <div class="supplier-mini"><span class="status-dot is-ok"></span><div><strong>{{ s.name }}</strong><small>{{ s.website|host }} · live search</small></div></div>
+    {% endfor %}
+    {% for s in rfq_only %}
+    <div class="supplier-mini is-off"><span class="status-dot is-off"></span><div><strong>{{ s.name }}</strong><small>Website offline · RFQ only</small></div></div>
+    {% endfor %}
+    <a class="supplier-mini is-link" href="/suppliers#directory"><span class="status-dot {{ 'is-ok' if directory.count else 'is-wait' }}"></span><div>
+      <strong>{{ directory.count }} nearby suppliers</strong>
+      <small>{% if directory.status == 'running' and not directory.count %}Finding suppliers in {{ directory.label }}…{% else %}Tier 2/3 in {{ directory.label }} · rated{% endif %}</small></div></a>
+  </div>
+</section>
+{% endblock %}
+{% block data %}
+<script id="pf-data" type="application/json">{{ {"saved": saved, "pending": pending, "user": user, "vat_pct": vat_pct, "max_compare": max_compare, "active": active_list} | tojson }}</script>
+{% endblock %}
